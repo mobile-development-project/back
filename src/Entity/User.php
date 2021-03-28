@@ -56,10 +56,16 @@ class User implements UserInterface
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Course::class, mappedBy="user")
+     */
+    private $courses;
+
     public function __construct ()
     {
         $this->assignments = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId (): ?int
@@ -203,6 +209,36 @@ class User implements UserInterface
             if ($category->getUser() === $this)
             {
                 $category->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Course[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getUser() === $this) {
+                $course->setUser(null);
             }
         }
 

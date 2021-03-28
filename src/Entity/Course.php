@@ -27,7 +27,7 @@ class Course
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:course"})
+     * @Groups({"read:course", "read:assignment"})
      */
     private ?string $name;
 
@@ -35,6 +35,12 @@ class Course
      * @ORM\OneToMany(targetEntity=Assignment::class, mappedBy="course")
      */
     private $assignments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="courses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct ()
     {
@@ -87,6 +93,18 @@ class Course
                 $assignment->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
