@@ -58,6 +58,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Course::class, mappedBy="user")
+     * @Groups({"read:user"})
      */
     private $courses;
 

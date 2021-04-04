@@ -21,18 +21,19 @@ class Course
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:course", "read:assignment"})
+     * @Groups({"read:course", "read:assignment", "read:user"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:course", "read:assignment"})
+     * @Groups({"read:course", "read:assignment", "read:user"})
      */
     private ?string $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Assignment::class, mappedBy="course")
+     * @Groups({"read:course"})
      */
     private $assignments;
 
@@ -97,15 +98,20 @@ class Course
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser (): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser (?User $user): self
     {
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString ()
+    {
+        return $this->name;
     }
 }

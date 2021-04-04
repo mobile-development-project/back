@@ -26,7 +26,7 @@ class Assignment
      * @ORM\Column(type="integer")
      * @Groups({"read:assignment", "read:course", "read:user"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,7 +43,7 @@ class Assignment
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"read:assignment", "read:course"})
+     * @Groups({"read:assignment", "read:course", "read:user"})
      */
     private ?bool $allowNotifications = false;
 
