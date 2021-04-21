@@ -36,7 +36,7 @@ class Assignment
 
     /**
      * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="assignments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"read:assignment"})
      */
     private ?Course $course;
@@ -61,7 +61,7 @@ class Assignment
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"read:course"})
      */
     private ?User $user;
