@@ -54,10 +54,10 @@ class Assignment
     private ?DateTimeInterface $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string")
      * @Groups({"read:assignment", "read:course", "read:user"})
      */
-    private ?DateTimeInterface $finishAt;
+    private ?string $finishAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="assignments")
@@ -69,7 +69,6 @@ class Assignment
     public function __construct ()
     {
         $this->createdAt = new DateTime();
-        $this->finishAt = new DateTime();
     }
 
     public function getId (): ?int
@@ -125,12 +124,12 @@ class Assignment
         return $this;
     }
 
-    public function getFinishAt (): ?DateTimeInterface
+    public function getFinishAt (): ?string
     {
         return $this->finishAt;
     }
 
-    public function setFinishAt (DateTimeInterface $finishAt): self
+    public function setFinishAt (string $finishAt): self
     {
         $this->finishAt = $finishAt;
 

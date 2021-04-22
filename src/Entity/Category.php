@@ -33,6 +33,11 @@ class Category
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer", length=255)
+     */
+    private $color;
+
     public function getId (): ?int
     {
         return $this->id;
@@ -58,6 +63,18 @@ class Category
     public function setUser (?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getColor (): ?int
+    {
+        return $this->color;
+    }
+
+    public function setColor (int $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
