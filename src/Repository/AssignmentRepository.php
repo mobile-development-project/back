@@ -14,9 +14,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AssignmentRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct (ManagerRegistry $registry)
     {
         parent::__construct($registry, Assignment::class);
+    }
+
+    public function getNearAssignments ()
+    {
+        return $this->createQueryBuilder("a")
+            ->andWhere("a.finishAt BETWEEN CURRENT_DATE() AND DATE_ADD(CURRENT_DATE(), 5, 'DAY')")
+            ->orderBy("a.finishAt", "ASC")
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

@@ -17,13 +17,13 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:user"})
+     * @Groups({"read:user", "read:calendar"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:user"})
+     * @Groups({"read:user", "read:calendar"})
      */
     private $name;
 
@@ -35,6 +35,7 @@ class Category
 
     /**
      * @ORM\Column(type="integer", length=255)
+     * @Groups({"read:calendar"})
      */
     private $color;
 

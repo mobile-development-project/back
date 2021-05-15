@@ -9,12 +9,23 @@ use DateTimeInterface;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\Api\AssignmentNearController;
 use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=AssignmentRepository::class)
  * @ApiResource(
- *     normalizationContext={"groups"={"read:assignment"}}
+ *     normalizationContext={"groups"={"read:assignment"}},
+ *     collectionOperations={
+ *      "post",
+ *      "put",
+ *      "get",
+ *      "near"={
+ *          "method"="GET",
+ *          "path"="/assignments/near",
+ *          "controller"=AssignmentNearController::class
+ *        }
+ *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"course", "exact"})
  */
@@ -55,7 +66,7 @@ class Assignment
 
     /**
      * @ORM\Column(type="string")
-     * @Groups({"read:assignment", "read:course", "read:user"})
+     * @Groups({"read:assignment", "read:course", "read:user", "read:calendar"})
      */
     private ?string $finishAt;
 
